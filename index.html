@@ -2,55 +2,117 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Client Info</title>
+    <title>Client Device Info</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/bowser@2.11.0/bundled.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            padding: 2rem;
-            background: #f4f4f4;
+            font-family: system-ui, sans-serif;
+            margin: 0;
+            padding: 1.5rem;
+            background-color: #f8f8f8;
+            color: #333;
         }
-        h2 {
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .info {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        .info-row {
             margin-bottom: 1rem;
         }
-        .info {
-            background: white;
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            max-width: 500px;
-        }
-        .info div {
-            margin-bottom: 0.5rem;
-        }
+
         .label {
             font-weight: bold;
+            display: block;
+            margin-bottom: 0.3rem;
+            color: #555;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+            .info {
+                padding: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-<h2>Your Device Info</h2>
+<h1>Your Device Info</h1>
 <div class="info">
-    <div><span class="label">Browser:</span> <span id="browserName"></span> <span id="browserVersion"></span></div>
-    <div><span class="label">OS:</span> <span id="osName"></span> <span id="osVersion"></span></div>
-    <div><span class="label">Platform Type:</span> <span id="platformType"></span></div>
-    <div><span class="label">User Agent:</span> <span id="userAgent"></span></div>
+    <div class="info-row">
+        <span class="label">Browser:</span>
+        <span id="browserName"></span> <span id="browserVersion"></span>
+    </div>
+    <div class="info-row">
+        <span class="label">OS:</span>
+        <span id="osName"></span> <span id="osVersion"></span>
+    </div>
+    <div class="info-row">
+        <span class="label">Platform Type:</span>
+        <span id="platformType"></span>
+    </div>
+    <div class="info-row">
+        <span class="label">Device Type:</span>
+        <span id="deviceType"></span>
+    </div>
+    <div class="info-row">
+        <span class="label">Device Vendor:</span>
+        <span id="deviceVendor"></span>
+    </div>
+    <div class="info-row">
+        <span class="label">Device Model:</span>
+        <span id="deviceModel"></span>
+    </div>
+    <div class="info-row">
+        <span class="label">Screen Resolution:</span>
+        <span id="screenSize"></span>
+    </div>
+    <div class="info-row">
+        <span class="label">Language:</span>
+        <span id="language"></span>
+    </div>
+    <div class="info-row">
+        <span class="label">Platform (JS):</span>
+        <span id="platformRaw"></span>
+    </div>
+    <div class="info-row">
+        <span class="label">User Agent:</span>
+        <span id="userAgent"></span>
+    </div>
 </div>
 
 <script>
     const parser = bowser.getParser(window.navigator.userAgent);
-    const browserName = parser.getBrowserName();
-    const browserVersion = parser.getBrowserVersion();
-    const osName = parser.getOSName();
-    const osVersion = parser.getOSVersion();
-    const platformType = parser.getPlatformType(); // desktop, mobile, tablet, etc.
+    const result = parser.getResult(); // Get all info at once
+    const device = result.device || {};
 
-    document.getElementById('browserName').textContent = browserName;
-    document.getElementById('browserVersion').textContent = browserVersion;
-    document.getElementById('osName').textContent = osName;
-    document.getElementById('osVersion').textContent = osVersion;
-    document.getElementById('platformType').textContent = platformType;
+    document.getElementById('browserName').textContent = result.browser.name || "Unknown";
+    document.getElementById('browserVersion').textContent = result.browser.version || "";
+    document.getElementById('osName').textContent = result.os.name || "Unknown";
+    document.getElementById('osVersion').textContent = result.os.version || "";
+    document.getElementById('platformType').textContent = result.platform.type || "Unknown";
+    document.getElementById('deviceType').textContent = device.type || "Unknown";
+    document.getElementById('deviceVendor').textContent = device.vendor || "Unknown";
+    document.getElementById('deviceModel').textContent = device.model || "Unknown";
+
+    document.getElementById('screenSize').textContent = `${screen.width} x ${screen.height}`;
+    document.getElementById('language').textContent = navigator.language || "N/A";
+    document.getElementById('platformRaw').textContent = navigator.platform || "N/A";
     document.getElementById('userAgent').textContent = navigator.userAgent;
+
 </script>
 </body>
 </html>
