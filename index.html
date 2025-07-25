@@ -58,7 +58,7 @@
     </div>
     <div class="info-row">
         <span class="label">OS:</span>
-        <span id="osName"></span> <span id="osVersion"></span>
+        <span id="osName"></span> <span id="osVersionName"></span>(<span id="osVersion"></span>)
     </div>
     <div class="info-row">
         <span class="label">Platform Type:</span>
@@ -103,6 +103,7 @@
     document.getElementById('browserVersion').textContent = result.browser.version || "";
     document.getElementById('osName').textContent = result.os.name || "Unknown";
     document.getElementById('osVersion').textContent = result.os.version || "";
+    document.getElementById('osVersionName').textContent = result.os.versionName || "" ;
     document.getElementById('platformType').textContent = result.platform.type || "Unknown";
     document.getElementById('deviceType').textContent = device.type || "Unknown";
     document.getElementById('deviceVendor').textContent = device.vendor || "Unknown";
