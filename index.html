@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client Info</title>
+    <script src="https://cdn.jsdelivr.net/npm/bowser@2.11.0/bundled.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+            background: #f4f4f4;
+        }
+        h2 {
+            margin-bottom: 1rem;
+        }
+        .info {
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 500px;
+        }
+        .info div {
+            margin-bottom: 0.5rem;
+        }
+        .label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h2>Your Device Info</h2>
+<div class="info">
+    <div><span class="label">Browser:</span> <span id="browserName"></span> <span id="browserVersion"></span></div>
+    <div><span class="label">OS:</span> <span id="osName"></span> <span id="osVersion"></span></div>
+    <div><span class="label">Platform Type:</span> <span id="platformType"></span></div>
+    <div><span class="label">User Agent:</span> <span id="userAgent"></span></div>
+</div>
+
+<script>
+    const parser = bowser.getParser(window.navigator.userAgent);
+    const browserName = parser.getBrowserName();
+    const browserVersion = parser.getBrowserVersion();
+    const osName = parser.getOSName();
+    const osVersion = parser.getOSVersion();
+    const platformType = parser.getPlatformType(); // desktop, mobile, tablet, etc.
+
+    document.getElementById('browserName').textContent = browserName;
+    document.getElementById('browserVersion').textContent = browserVersion;
+    document.getElementById('osName').textContent = osName;
+    document.getElementById('osVersion').textContent = osVersion;
+    document.getElementById('platformType').textContent = platformType;
+    document.getElementById('userAgent').textContent = navigator.userAgent;
+</script>
+</body>
+</html>
